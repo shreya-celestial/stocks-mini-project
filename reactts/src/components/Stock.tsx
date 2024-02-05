@@ -18,18 +18,22 @@ const Stock: React.FC = () => {
     return <h1 className="status">{data}</h1>;
   }
 
-  const graph = [
-    ["", ""],
-    ...data?.response?.graph.map((point: { date: Date; price: number }) => {
-      return [
-        new Date(point?.date).toLocaleTimeString("en-US", {
-          hour: "numeric",
-          minute: "numeric",
-        }),
-        point?.price,
-      ];
-    }),
-  ];
+  const graph = data?.response?.graph
+    ? [
+        ["", ""],
+        ...data?.response?.graph?.map(
+          (point: { date: Date; price: number }) => {
+            return [
+              new Date(point?.date).toLocaleTimeString("en-US", {
+                hour: "numeric",
+                minute: "numeric",
+              }),
+              point?.price,
+            ];
+          }
+        ),
+      ]
+    : [];
 
   const title = `${data?.response?.search_parameters?.q} for ${data?.response.summary.price}`;
 
@@ -41,22 +45,26 @@ const Stock: React.FC = () => {
     colors: ["green"],
   };
 
-  const IMAGES = data?.response?.news_results.filter(
-    (img: object, index: number) => index > 0
+  const IMAGES = data?.response?.news_results.filter((img: any) =>
+    img?.title ? false : true
   );
 
   return (
     <Container component={Paper} sx={{ padding: "10px 0 40px" }}>
       <Carousel images={IMAGES} />
       <h1>{data?.response?.summary?.title}</h1>
-      <Chart
-        chartType="Line"
-        width="100%"
-        height="400px"
-        data={graph}
-        options={options}
-        style={{ marginBottom: "50px" }}
-      />
+      {!data?.response?.graph ? (
+        ""
+      ) : (
+        <Chart
+          chartType="Line"
+          width="100%"
+          height="400px"
+          data={graph}
+          options={options}
+          style={{ marginBottom: "50px" }}
+        />
+      )}
       <h3>Stats</h3>
       <Table
         sx={{ minWidth: 650, margin: "0 0 40px" }}
