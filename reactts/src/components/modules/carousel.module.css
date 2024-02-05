@@ -1,0 +1,51 @@
+@keyframes slide {
+  0%   {margin-left: 40px; margin-right: 0px; opacity: 0;}
+  25%   {opacity: 0.45;}
+  50%   {margin-left: 20px; margin-right: 0px; opacity: 0.65;}
+  75%   {opacity: 0.9;}
+  100% {margin-left: 20px; margin-right: 20px; opacity: 1;}
+}
+
+.shown{
+  display: block;
+  width: 94.5%;
+  min-height: 200px;
+  height: 300px;
+  position: relative;
+  margin: 20px auto;
+  animation-name: slide;
+  animation-duration: 3s;
+  animation-delay: 0ms;
+}
+
+.shown img {
+  max-height: 325px;
+  height: 325px;
+  width: 100%;
+  position: relative;
+}
+
+.shown div {
+  position: absolute;
+  bottom: -25px;
+  height: 100px;
+  width: 100%;
+  text-align: start;
+  background-color: rgba(0,0,1,0.8);
+  color: wheat;
+}
+
+.shown div p {
+  margin: 10px 15px;
+  width: 75%;
+}
+
+.shown div a {
+  color: wheat;
+  text-decoration: underline;
+  margin: auto 15px 10px;
+}
+
+.hidden {
+  display: none;
+};

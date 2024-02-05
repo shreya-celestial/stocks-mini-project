@@ -8,6 +8,7 @@ import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Container } from "@mui/material";
+import Carousel from "./Carousel";
 
 const Stock: React.FC = () => {
   const { ticker } = useParams();
@@ -30,7 +31,7 @@ const Stock: React.FC = () => {
     }),
   ];
 
-  const title = `${data?.response?.summary?.title} for ${data?.response.summary.price}`;
+  const title = `${data?.response?.search_parameters?.q} for ${data?.response.summary.price}`;
 
   const options = {
     chart: {
@@ -40,9 +41,14 @@ const Stock: React.FC = () => {
     colors: ["green"],
   };
 
+  const IMAGES = data?.response?.news_results.filter(
+    (img: object, index: number) => index > 0
+  );
+
   return (
     <Container component={Paper} sx={{ padding: "10px 0 40px" }}>
-      <h1>{data?.response?.search_parameters?.q}</h1>
+      <Carousel images={IMAGES} />
+      <h1>{data?.response?.summary?.title}</h1>
       <Chart
         chartType="Line"
         width="100%"
