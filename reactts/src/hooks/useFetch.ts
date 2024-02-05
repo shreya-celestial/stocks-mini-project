@@ -17,10 +17,18 @@ const useFetch = (ticker:string|undefined) => {
         const resData = await fetch(url);
         if (resData.status === 200) {
           const response = await resData.json();
-          dispatch({
-            type: "SET_STOCK",
-            payload: { ticker, response },
-          });
+          if(response.summary && response.knowledge_graph && response.financials){
+            dispatch({
+              type: "SET_STOCK",
+              payload: { ticker, response },
+            });
+          }
+          else{
+            dispatch({
+              type: "ERROR",
+              payload: "An error occurred. Please try again!",
+            });
+          }
         } else {
           dispatch({
             type: "ERROR",
@@ -39,8 +47,6 @@ const useFetch = (ticker:string|undefined) => {
       getData();
     }
   }, [ticker]);
-  
-  console.log(data);
 
   return data;
 }

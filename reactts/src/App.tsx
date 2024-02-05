@@ -2,13 +2,17 @@ import React from "react";
 import TableData from "./components/Table";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Stock from "./components/Stock";
+import NavBar from "./components/NavBar";
+import SignUp from "./components/SignUp";
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
       <div className="table">
+        <NavBar />
         <Routes>
           <Route path="/" element={<TableData />} />
+          <Route path="/sign-up" element={<SignUp />} />
           <Route path="/:ticker" element={<Stock />} />
           <Route path="/*" element={<TableData />} />
         </Routes>

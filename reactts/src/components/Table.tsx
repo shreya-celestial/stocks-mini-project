@@ -27,7 +27,6 @@ const TableData: React.FC = () => {
 
   return (
     <TableContainer component={Paper}>
-      <h2 style={{ textDecoration: "underline" }}>NSE STOCKS</h2>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>

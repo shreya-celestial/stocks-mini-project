@@ -15,7 +15,11 @@ const Stock: React.FC = () => {
   const data = useFetch(ticker);
 
   if (typeof data === "string") {
-    return <h1 className="status">{data}</h1>;
+    return (
+      <Container component={Paper} sx={{ padding: "10px 0 40px" }}>
+        <h1 className="status">{data}</h1>
+      </Container>
+    );
   }
 
   const graph = data?.response?.graph
@@ -35,7 +39,7 @@ const Stock: React.FC = () => {
       ]
     : [];
 
-  const title = `${data?.response?.search_parameters?.q} for ${data?.response.summary.price}`;
+  const title = `${data?.response?.search_parameters?.q} for ${data?.response?.summary?.price}`;
 
   const options = {
     chart: {
@@ -45,7 +49,7 @@ const Stock: React.FC = () => {
     colors: ["green"],
   };
 
-  const IMAGES = data?.response?.news_results.filter((img: any) =>
+  const IMAGES = data?.response?.news_results?.filter((img: any) =>
     img?.title ? false : true
   );
 
@@ -87,7 +91,7 @@ const Stock: React.FC = () => {
         </TableBody>
       </Table>
       <h3>About</h3>
-      <p>{data?.response.knowledge_graph.about[0].description.snippet}</p>
+      <p>{data?.response?.knowledge_graph?.about[0]?.description?.snippet}</p>
       <Table
         sx={{ minWidth: 650, margin: "0 0 40px" }}
         aria-label="simple table"
@@ -108,25 +112,31 @@ const Stock: React.FC = () => {
           )}
         </TableBody>
       </Table>
-      <h3>{data?.response?.financials[0]?.title}</h3>
+      <h3>
+        {data?.response?.financials?.length > 0
+          ? data?.response?.financials[0]?.title
+          : ""}
+      </h3>
       <Table
         sx={{ minWidth: 650, margin: "0 0 40px" }}
         aria-label="simple table"
       >
         <TableBody>
-          {data?.response?.financials[0]?.results[0]?.table.map(
-            (stat: { title: string; value: string }, index: number) => (
-              <TableRow
-                key={index}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {stat?.title}
-                </TableCell>
-                <TableCell align="right">{stat?.value}</TableCell>
-              </TableRow>
-            )
-          )}
+          {data?.response?.financials?.length > 0
+            ? data?.response?.financials[0]?.results[0]?.table?.map(
+                (stat: { title: string; value: string }, index: number) => (
+                  <TableRow
+                    key={index}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {stat?.title}
+                    </TableCell>
+                    <TableCell align="right">{stat?.value}</TableCell>
+                  </TableRow>
+                )
+              )
+            : ""}
         </TableBody>
       </Table>
     </Container>
