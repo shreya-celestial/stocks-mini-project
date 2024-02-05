@@ -18,7 +18,7 @@ const NavBar = () => {
             NStockE
           </h1>
           <Button color="inherit" sx={{ marginLeft: "auto" }}>
-            <Link to={""} style={{ color: "white" }}>
+            <Link to={"/login/user"} style={{ color: "white" }}>
               Login
             </Link>
           </Button>

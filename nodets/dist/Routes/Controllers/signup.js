@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.signup = void 0;
+exports.login = exports.signup = void 0;
 const user_1 = require("../../Entities/user");
 const dataSources_1 = __importDefault(require("../../dataSources"));
 const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -39,3 +39,15 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     return res.status(400).json({ msg: 'Email already exists!', status: 'error' });
 });
 exports.signup = signup;
+const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email, password } = req.query;
+    const userRepo = dataSources_1.default.getRepository(user_1.User);
+    const checkedUser = yield userRepo.findOne({ where: {
+            email, password
+        } });
+    if (checkedUser) {
+        return res.status(200).json({ status: 'success', msg: 'User logged in successfully', data: checkedUser });
+    }
+    return res.status(400).json({ msg: 'Authentication failed.. Please try again!', status: 'error' });
+});
+exports.login = login;

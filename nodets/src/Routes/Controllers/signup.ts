@@ -26,3 +26,16 @@ export const signup = async (req:any,res:any)=> {
   }
   return res.status(400).json({ msg:'Email already exists!', status:'error'})
 }
+
+export const login = async (req:any,res:any) => {
+  const {email,password} = req.query
+  const userRepo = AppDataSource.getRepository(User)
+  const checkedUser = await userRepo.findOne({where:{
+    email,password
+  }})
+  if(checkedUser)
+  {
+    return res.status(200).json({status:'success', msg: 'User logged in successfully', data:checkedUser})
+  }
+  return res.status(400).json({ msg:'Authentication failed.. Please try again!', status:'error'})
+}
