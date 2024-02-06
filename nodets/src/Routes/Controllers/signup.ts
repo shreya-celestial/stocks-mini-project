@@ -2,7 +2,7 @@ import { User } from "../../Entities/user";
 import AppDataSource from "../../dataSources";
 
 export const signup = async (req:any,res:any)=> {
-  const {name,email,password,pin,country,state,city,address1,address2} = req.body
+  const {fname,lname,email,password,pin,country,state,city,address1,address2} = req.body
   const userRepo = AppDataSource.getRepository(User)
   const check = await userRepo.findOne({where:{
     email
@@ -10,8 +10,8 @@ export const signup = async (req:any,res:any)=> {
 
   if(!check){
     const user = new User();
-    user.firstname = name.split(' ')[0];
-    user.lastname = name.split(' ')[1] ? name.split(' ')[1] : '';
+    user.firstname = fname;
+    user.lastname = lname;
     user.email = email;
     user.password = password;
     user.pincode = pin;

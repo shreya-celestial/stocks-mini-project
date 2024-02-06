@@ -16,15 +16,15 @@ exports.login = exports.signup = void 0;
 const user_1 = require("../../Entities/user");
 const dataSources_1 = __importDefault(require("../../dataSources"));
 const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, email, password, pin, country, state, city, address1, address2 } = req.body;
+    const { fname, lname, email, password, pin, country, state, city, address1, address2 } = req.body;
     const userRepo = dataSources_1.default.getRepository(user_1.User);
     const check = yield userRepo.findOne({ where: {
             email
         } });
     if (!check) {
         const user = new user_1.User();
-        user.firstname = name.split(' ')[0];
-        user.lastname = name.split(' ')[1] ? name.split(' ')[1] : '';
+        user.firstname = fname;
+        user.lastname = lname;
         user.email = email;
         user.password = password;
         user.pincode = pin;

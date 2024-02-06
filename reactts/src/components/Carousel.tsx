@@ -72,7 +72,6 @@ export default function Carousel(props: any) {
               handleClick();
               handleNext();
             }}
-            disabled={activeStep === 5}
           >
             Next
             {theme.direction === "rtl" ? (

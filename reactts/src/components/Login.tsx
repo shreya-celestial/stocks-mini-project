@@ -2,9 +2,12 @@ import styles from "./modules/signup.module.css";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import UserContext from "../store/UserContext";
 
 const Login = () => {
   const nav = useNavigate();
+  const { setUser } = useContext(UserContext);
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const data = {
@@ -16,6 +19,8 @@ const Login = () => {
       const dataUser = await fetch(url);
       const response = await dataUser.json();
       if (response?.status === "success") {
+        sessionStorage.setItem("user", JSON.stringify(response?.data));
+        setUser(response?.data);
         nav("/");
       } else {
         alert(response?.msg);

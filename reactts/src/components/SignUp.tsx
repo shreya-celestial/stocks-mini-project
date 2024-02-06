@@ -18,7 +18,8 @@ const SignUp = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const data = {
-      name: e.target.elements.name.value,
+      fname: e.target.elements.firstname.value,
+      lname: e.target.elements.lastname.value,
       email: e.target.elements.email.value,
       password: e.target.elements.password.value,
       pin: e.target.elements.pincode.value,
@@ -38,7 +39,7 @@ const SignUp = () => {
       });
       const response = await postData.json();
       if (response?.status === "success") {
-        nav("/");
+        nav("/login/user");
       } else {
         alert(response?.msg);
       }
@@ -73,25 +74,33 @@ const SignUp = () => {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <h2>Basic Details</h2>
-      <TextField
-        required
-        label="Full Name"
-        name="name"
-        sx={{ width: "94.4%", marginBottom: "20px" }}
-      />
+      <div className={styles.nameInps}>
+        <TextField
+          required
+          label="First Name"
+          name="firstname"
+          sx={{ width: "49%" }}
+        />
+        <TextField
+          required
+          label="Last Name"
+          name="lastname"
+          sx={{ width: "49%" }}
+        />
+      </div>
       <TextField
         required
         label="Email"
         type="email"
         name="email"
-        sx={{ width: "94.4%", marginBottom: "20px" }}
+        sx={{ width: "96.7%", marginBottom: "20px" }}
       />
       <TextField
         required
         label="Password"
         type="password"
         name="password"
-        sx={{ width: "94.4%", marginBottom: "20px" }}
+        sx={{ width: "96.7%", marginBottom: "20px" }}
       />
       <hr />
       <h2>Address Details</h2>
@@ -143,13 +152,13 @@ const SignUp = () => {
         required
         label="Address Line 1"
         name="address1"
-        sx={{ width: "94.4%", marginBottom: "20px" }}
+        sx={{ width: "96.7%", marginBottom: "20px" }}
       />
       <TextField
         required
         label="Address Line 2"
         name="address2"
-        sx={{ width: "94.4%", marginBottom: "20px" }}
+        sx={{ width: "96.7%", marginBottom: "20px" }}
       />
       <Button variant="contained" type="submit">
         Sign Up
