@@ -53,7 +53,7 @@ const NavBar = () => {
             </Button>
           )}
           {user && (
-            <AccountCircleIcon fontSize="large" sx={{ marginLeft: "10px" }} />
+            <AccountCircleIcon fontSize="large" sx={{ marginLeft: "15px" }} />
           )}
         </Toolbar>
       </AppBar>

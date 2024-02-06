@@ -1,4 +1,5 @@
 import React from "react";
+import Grid from "@mui/material/Grid";
 import { useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import { Chart } from "react-google-charts";
@@ -54,73 +55,110 @@ const Stock: React.FC = () => {
   );
 
   return (
-    <Container component={Paper} sx={{ padding: "10px 0 40px" }}>
-      <Carousel images={IMAGES} />
+    <Container sx={{ padding: "10px 0 40px", width: "100%" }}>
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid item xs={11} sm={12}>
+          <Carousel images={IMAGES} />
+        </Grid>
+      </Grid>
       <h1>{data?.response?.summary?.title}</h1>
       {!data?.response?.graph ? (
         ""
       ) : (
-        <Chart
-          chartType="Line"
-          width="100%"
-          height="400px"
-          data={graph}
-          options={options}
-          style={{ marginBottom: "50px" }}
-        />
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+          <Grid item xs={12} sm={6}>
+            <Chart
+              chartType="Line"
+              width="100%"
+              height="400px"
+              data={graph}
+              options={options}
+              style={{ marginBottom: "50px" }}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <h3>Stats</h3>
+            <Table sx={{ margin: "0 0 40px" }} aria-label="simple table">
+              <TableBody>
+                {data?.response?.knowledge_graph?.key_stats?.stats?.map(
+                  (stat: { label: string; value: string }, index: number) => (
+                    <TableRow
+                      key={index}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {stat?.label}
+                      </TableCell>
+                      <TableCell align="right">{stat?.value}</TableCell>
+                    </TableRow>
+                  )
+                )}
+              </TableBody>
+            </Table>
+          </Grid>
+        </Grid>
       )}
-      <h3>Stats</h3>
-      <Table
-        sx={{ minWidth: 650, margin: "0 0 40px" }}
-        aria-label="simple table"
-      >
-        <TableBody>
-          {data?.response?.knowledge_graph?.key_stats?.stats?.map(
-            (stat: { label: string; value: string }, index: number) => (
-              <TableRow
-                key={index}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {stat?.label}
-                </TableCell>
-                <TableCell align="right">{stat?.value}</TableCell>
-              </TableRow>
-            )
-          )}
-        </TableBody>
-      </Table>
-      <h3>About</h3>
-      <p>{data?.response?.knowledge_graph?.about[0]?.description?.snippet}</p>
-      <Table
-        sx={{ minWidth: 650, margin: "0 0 40px" }}
-        aria-label="simple table"
-      >
-        <TableBody>
-          {data?.response?.knowledge_graph?.about[0]?.info.map(
-            (stat: { label: string; value: string }, index: number) => (
-              <TableRow
-                key={index}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {stat?.label}
-                </TableCell>
-                <TableCell align="right">{stat?.value}</TableCell>
-              </TableRow>
-            )
-          )}
-        </TableBody>
-      </Table>
+      {data?.response?.graph ? (
+        ""
+      ) : (
+        <>
+          <h3>Stats</h3>
+          <Table sx={{ margin: "0 0 40px" }} aria-label="simple table">
+            <TableBody>
+              {data?.response?.knowledge_graph?.key_stats?.stats?.map(
+                (stat: { label: string; value: string }, index: number) => (
+                  <TableRow
+                    key={index}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {stat?.label}
+                    </TableCell>
+                    <TableCell align="right">{stat?.value}</TableCell>
+                  </TableRow>
+                )
+              )}
+            </TableBody>
+          </Table>
+        </>
+      )}
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid item xs={12}>
+          <h3>About</h3>
+          <p>
+            {data?.response?.knowledge_graph?.about[0]?.description?.snippet}
+          </p>
+          <Table sx={{ margin: "0 0 40px" }} aria-label="simple table">
+            <TableBody>
+              {data?.response?.knowledge_graph?.about[0]?.info.map(
+                (stat: { label: string; value: string }, index: number) => (
+                  <TableRow
+                    key={index}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      component="th"
+                      scope="row"
+                      sx={{ textWrap: "wrap" }}
+                    >
+                      {stat?.label}
+                    </TableCell>
+                    <TableCell align="right" sx={{ textWrap: "wrap" }}>
+                      {stat?.value}
+                    </TableCell>
+                  </TableRow>
+                )
+              )}
+            </TableBody>
+          </Table>
+        </Grid>
+      </Grid>
       <h3>
         {data?.response?.financials?.length > 0
           ? data?.response?.financials[0]?.title
           : ""}
       </h3>
-      <Table
-        sx={{ minWidth: 650, margin: "0 0 40px" }}
-        aria-label="simple table"
-      >
+      <Table sx={{ margin: "0 0 40px" }} aria-label="simple table">
         <TableBody>
           {data?.response?.financials?.length > 0
             ? data?.response?.financials[0]?.results[0]?.table?.map(

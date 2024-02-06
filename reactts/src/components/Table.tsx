@@ -28,7 +28,7 @@ const TableData: React.FC = () => {
   return (
     <TableContainer component={Paper}>
       <Table
-        sx={{ minWidth: 650, width: "90%", margin: "10px auto 0" }}
+        sx={{ width: "90%", margin: "10px auto 0" }}
         aria-label="simple table"
       >
         <TableHead>
@@ -61,7 +61,7 @@ const TableData: React.FC = () => {
         spacing={2}
         sx={{
           margin: "20px auto 40px",
-          width: "17%",
+          width: "fit-content",
         }}
       >
         <Pagination count={count} page={page} onChange={handleChange} />
