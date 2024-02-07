@@ -6,14 +6,34 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import UserContext from "../store/UserContext";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useCookies } from "react-cookie";
 
 const NavBar = () => {
   const nav = useNavigate();
   const { user, setUser } = useContext(UserContext);
+  const [cookies] = useCookies();
 
-  const handleLogOut = () => {
+  const handleLogOut = async () => {
+    if (cookies?.token) {
+      try {
+        const logResp = await fetch("http://localhost:8080/user/logoutgoogle", {
+          headers: {
+            Cookies: cookies?.token,
+          },
+        });
+        const response = await logResp.json();
+        if (response?.status !== "success") {
+          alert("Cannot log you out at this moment. Try again later!");
+          return;
+        }
+      } catch (err) {
+        alert("Something went wrong... Please try again!");
+        return;
+      }
+    }
     setUser(null);
     sessionStorage.removeItem("user");
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   };
 
   const handleClick = () => {
@@ -37,7 +57,7 @@ const NavBar = () => {
           )}
           {!user && (
             <Link
-              to={"/sign-up"}
+              to={"/sign-up/user"}
               style={{ color: "white", marginLeft: "10px" }}
             >
               <Button color="inherit">Sign Up</Button>

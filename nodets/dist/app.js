@@ -19,11 +19,15 @@ const cors_1 = __importDefault(require("cors"));
 const serpapi_1 = require("serpapi");
 const dataSources_1 = __importDefault(require("./dataSources"));
 const signup_1 = __importDefault(require("./Routes/signup"));
+const googleOauth_1 = __importDefault(require("./Routes/googleOauth"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const app = (0, express_1.default)();
 app.use((0, nocache_1.default)());
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
+app.use((0, cookie_parser_1.default)());
 app.use('/user', signup_1.default);
+app.use('/oauth', googleOauth_1.default);
 app.get('/market', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { stock } = req.query;
     try {

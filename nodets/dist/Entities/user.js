@@ -31,33 +31,45 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ nullable: true, }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ nullable: true, }),
     __metadata("design:type", Number)
 ], User.prototype, "pincode", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ nullable: true, }),
     __metadata("design:type", String)
 ], User.prototype, "country", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ nullable: true, }),
     __metadata("design:type", String)
 ], User.prototype, "state", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ nullable: true, }),
     __metadata("design:type", String)
 ], User.prototype, "city", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ nullable: true, }),
     __metadata("design:type", String)
 ], User.prototype, "adress1", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ nullable: true, }),
     __metadata("design:type", String)
 ], User.prototype, "address2", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true, }),
+    __metadata("design:type", String)
+], User.prototype, "pictureUrl", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true, unique: true, }),
+    __metadata("design:type", String)
+], User.prototype, "authId", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true, unique: true, }),
+    __metadata("design:type", String)
+], User.prototype, "token", void 0);
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)()
 ], User);

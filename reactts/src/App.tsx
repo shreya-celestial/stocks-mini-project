@@ -29,7 +29,7 @@ const App: React.FC = () => {
           <NavBar />
           <Routes>
             <Route path="/" element={<TableData />} />
-            {!user && <Route path="/sign-up" element={<SignUp />} />}
+            {!user && <Route path="/sign-up/user" element={<SignUp />} />}
             {!user && <Route path="/login/user" element={<Login />} />}
             <Route path="/:ticker" element={<Stock />} />
             <Route path="/*" element={<TableData />} />

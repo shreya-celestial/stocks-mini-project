@@ -14,24 +14,33 @@ export class User{
   @Column()
   email: string;
 
-  @Column()
+  @Column({nullable: true,})
   password: string;
 
-  @Column()
+  @Column({nullable: true,})
   pincode: number;
 
-  @Column()
+  @Column({nullable: true,})
   country: string;
 
-  @Column()
+  @Column({nullable: true,})
   state: string;
 
-  @Column()
+  @Column({nullable: true,})
   city: string;
 
-  @Column()
+  @Column({nullable: true,})
   adress1: string;
 
-  @Column()
+  @Column({nullable: true,})
   address2: string;
+
+  @Column({nullable: true,})
+  pictureUrl: string;
+
+  @Column({nullable: true, unique:true,})
+  authId: string;
+
+  @Column({nullable: true, unique:true,})
+  token: string;
 }
