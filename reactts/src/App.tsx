@@ -7,7 +7,7 @@ import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import UserContext from "./store/UserContext";
 
-let SESSION_USER = sessionStorage.getItem("user");
+let SESSION_USER = localStorage.getItem("user");
 SESSION_USER = SESSION_USER ? JSON.parse(SESSION_USER) : null;
 
 const App: React.FC = () => {
@@ -26,7 +26,7 @@ const App: React.FC = () => {
         const response = await checkData.json();
         if (response?.status !== "success") {
           alert("Session expired.. Please login again!");
-          sessionStorage.removeItem("user");
+          localStorage.removeItem("user");
           document.cookie =
             "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
           setUser(null);
