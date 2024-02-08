@@ -6,6 +6,7 @@ import NavBar from "./components/NavBar";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import UserContext from "./store/UserContext";
+import ForgotPass from "./components/ForgotPass";
 
 let SESSION_USER = localStorage.getItem("user");
 SESSION_USER = SESSION_USER ? JSON.parse(SESSION_USER) : null;
@@ -60,6 +61,7 @@ const App: React.FC = () => {
             <Route path="/" element={<TableData />} />
             {!user && <Route path="/sign-up/user" element={<SignUp />} />}
             {!user && <Route path="/login/user" element={<Login />} />}
+            {!user && <Route path="/forgot/user" element={<ForgotPass />} />}
             <Route path="/:ticker" element={<Stock />} />
             <Route path="/*" element={<TableData />} />
           </Routes>

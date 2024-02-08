@@ -1,7 +1,7 @@
 import styles from "./modules/signup.module.css";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../store/UserContext";
 import GoogleButton from "react-google-button";
@@ -84,7 +84,7 @@ const Login = () => {
   return (
     <Loader loading={loader}>
       <form className={styles.form} onSubmit={handleSubmit}>
-        <h2>Basic Details</h2>
+        <h2>Login Details</h2>
         <TextField
           required
           label="Email"
@@ -97,11 +97,40 @@ const Login = () => {
           label="Password"
           type="password"
           name="password"
-          sx={{ width: "94.4%", marginBottom: "20px" }}
+          sx={{ width: "94.4%", marginBottom: "10px" }}
         />
+        <div
+          style={{
+            marginBottom: "10px",
+            textAlign: "end",
+            marginRight: "35px",
+          }}
+        >
+          <Link
+            to={"/forgot/user"}
+            style={{
+              fontWeight: "600",
+              color: "#1976d2",
+            }}
+          >
+            Forgot Password?
+          </Link>
+        </div>
         <Button variant="contained" type="submit">
           Login
         </Button>
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <hr style={{ flexBasis: "40%", border: "0.5px solid #D3D3D3" }} />
+          <p style={{ color: "#A9A9A9" }}>OR</p>
+          <hr style={{ flexBasis: "40%", border: "0.5px solid #D3D3D3" }} />
+        </div>
         <div
           style={{
             width: "fit-content",
@@ -111,6 +140,18 @@ const Login = () => {
         >
           <GoogleButton onClick={handleGoogle} />
         </div>
+        <p style={{ textAlign: "center", marginTop: "20px" }}>
+          Doesn't have an account yet?{" "}
+          <Link
+            to={"/sign-up/user"}
+            style={{
+              fontWeight: "600",
+              color: "#1976d2",
+            }}
+          >
+            Sign Up!
+          </Link>
+        </p>
       </form>
     </Loader>
   );
