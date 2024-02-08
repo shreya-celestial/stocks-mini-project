@@ -6,12 +6,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import UserContext from "../store/UserContext";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { useCookies } from "react-cookie";
 
 const NavBar = () => {
   const nav = useNavigate();
   const { user, setUser } = useContext(UserContext);
-  const [cookies] = useCookies();
 
   const handleLogOut = async () => {
     if (user?.token) {
@@ -32,6 +30,7 @@ const NavBar = () => {
     setUser(null);
     sessionStorage.removeItem("user");
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    nav("/login/user");
   };
 
   const handleClick = () => {

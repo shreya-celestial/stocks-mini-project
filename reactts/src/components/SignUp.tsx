@@ -64,7 +64,7 @@ const SignUp = () => {
       if (pin && pin.trim()) {
         getAddress();
       }
-    }, 800);
+    }, 500);
 
     return () => {
       clearTimeout(timer);

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.glogout = exports.gdata = exports.login = exports.signup = void 0;
+exports.checkUser = exports.glogout = exports.gdata = exports.login = exports.signup = void 0;
 const user_1 = require("../../Entities/user");
 const dataSources_1 = __importDefault(require("../../dataSources"));
 const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -76,3 +76,33 @@ const glogout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     return res.status(404).json({ status: 'error', msg: 'User not found!' });
 });
 exports.glogout = glogout;
+const checkUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id, firstname, lastname, email, password, pincode, country, state, city, adress1, address2, pictureUrl, authId, token } = req.body;
+    const userRepo = dataSources_1.default.getRepository(user_1.User);
+    const check = yield userRepo.findOne({ where: {
+            id,
+            firstname,
+            lastname,
+            email,
+            password,
+            pincode,
+            country,
+            state,
+            city,
+            adress1,
+            address2,
+            pictureUrl,
+            authId,
+            token
+        } });
+    if (check) {
+        return res.status(200).json({ status: 'success', msg: 'User logged in!' });
+    }
+    if (id && email && token) {
+        const updated = yield userRepo.update({ id, email }, {
+            token: 'logged out'
+        });
+    }
+    return res.status(404).json({ status: 'error', msg: 'User not found!' });
+});
+exports.checkUser = checkUser;

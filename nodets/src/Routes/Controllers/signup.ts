@@ -1,3 +1,4 @@
+import { Request, Response } from "express";
 import { User } from "../../Entities/user";
 import AppDataSource from "../../dataSources";
 
@@ -64,4 +65,36 @@ export const glogout = async (req:any,res:any) => {
     return res.status(200).json({status:'success', msg:'successfully logged out!'})
   }
   return res.status(404).json({status:'error', msg:'User not found!'})
+}
+
+export const checkUser = async (req: Request, res: Response)=>{
+  const {id,firstname,lastname,email,password,pincode,country,state,city,adress1,address2,pictureUrl,authId,token} = req.body;
+  const userRepo = AppDataSource.getRepository(User)
+  const check = await userRepo.findOne({where:{
+    id, 
+    firstname,
+    lastname,
+    email,
+    password,
+    pincode,
+    country,
+    state,
+    city,
+    adress1,
+    address2,
+    pictureUrl,
+    authId,
+    token
+  }})
+  if(check)
+  {
+    return res.status(200).json({status:'success',msg:'User logged in!'})
+  }
+  if(id && email && token)
+  {
+    const updated = await userRepo.update({id, email}, {
+      token: 'logged out'
+    })
+  }
+  return res.status(404).json({status:'error',msg:'User not found!'})
 }
