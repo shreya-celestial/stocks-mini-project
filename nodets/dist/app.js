@@ -21,6 +21,8 @@ const dataSources_1 = __importDefault(require("./dataSources"));
 const signup_1 = __importDefault(require("./Routes/signup"));
 const googleOauth_1 = __importDefault(require("./Routes/googleOauth"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use((0, nocache_1.default)());
 app.use(express_1.default.json());
@@ -34,7 +36,7 @@ app.get('/market', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const gbodyFinance = {
             engine: "google_finance",
             q: stock,
-            api_key: "3186911e9d229ec7706b45b0a23f81c2d0e916de8f5e8728948d6627ae793d68",
+            api_key: process.env.GOOGLE_API_KEY,
         };
         const gresFin = yield (0, serpapi_1.getJson)(gbodyFinance);
         return res.status(200).json(gresFin);

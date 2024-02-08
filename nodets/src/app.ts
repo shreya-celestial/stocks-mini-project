@@ -7,6 +7,8 @@ import AppDataSource from './dataSources';
 import signup from './Routes/signup'
 import oauth from './Routes/googleOauth'
 import cookieParser from "cookie-parser";
+import dotenv from "dotenv"
+dotenv.config();
 
 const app = express();
 
@@ -23,7 +25,7 @@ app.get('/market', async (req, res)=>{
     const gbodyFinance = {
       engine: "google_finance",
       q:stock,
-      api_key: "3186911e9d229ec7706b45b0a23f81c2d0e916de8f5e8728948d6627ae793d68",
+      api_key: process.env.GOOGLE_API_KEY,
     }
     const gresFin = await getJson(gbodyFinance);
     return res.status(200).json(gresFin)
