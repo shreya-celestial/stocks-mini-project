@@ -9,6 +9,6 @@ router.get('/login', login)
 
 router.get('/googleRequest', clientRequest)
 router.get('/getmygoogledata', gdata)
-router.get('/logoutgoogle', glogout)
+router.get('/logoutgoogle/:id', glogout)
 
 export default router

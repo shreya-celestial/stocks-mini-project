@@ -65,21 +65,14 @@ const gdata = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.gdata = gdata;
 const glogout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _b;
-    const token = (_b = req === null || req === void 0 ? void 0 : req.headers) === null || _b === void 0 ? void 0 : _b.cookies;
-    if (token && token !== 'logged out') {
+    const { id } = req.params;
+    if (id) {
         const userRepo = dataSources_1.default.getRepository(user_1.User);
-        const check = yield userRepo.findOne({ where: {
-                token
-            } });
-        if (check) {
-            const updated = yield userRepo.update(check.id, {
-                token: 'logged out'
-            });
-            return res.status(200).json({ status: 'success', msg: 'successfully logged out!' });
-        }
-        return res.status(404).json({ status: 'error', msg: 'Not Found!' });
+        const updated = yield userRepo.update(id, {
+            token: 'logged out'
+        });
+        return res.status(200).json({ status: 'success', msg: 'successfully logged out!' });
     }
-    return res.status(400).json({ status: 'error', msg: 'Please provide a valid token!' });
+    return res.status(404).json({ status: 'error', msg: 'User not found!' });
 });
 exports.glogout = glogout;

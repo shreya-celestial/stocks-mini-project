@@ -11,5 +11,5 @@ router.post('/signup', signup_1.signup);
 router.get('/login', signup_1.login);
 router.get('/googleRequest', oauth_1.clientRequest);
 router.get('/getmygoogledata', signup_1.gdata);
-router.get('/logoutgoogle', signup_1.glogout);
+router.get('/logoutgoogle/:id', signup_1.glogout);
 exports.default = router;

@@ -14,13 +14,11 @@ const NavBar = () => {
   const [cookies] = useCookies();
 
   const handleLogOut = async () => {
-    if (cookies?.token) {
+    if (user?.token) {
       try {
-        const logResp = await fetch("http://localhost:8080/user/logoutgoogle", {
-          headers: {
-            Cookies: cookies?.token,
-          },
-        });
+        const logResp = await fetch(
+          `http://localhost:8080/user/logoutgoogle/${user?.id}`
+        );
         const response = await logResp.json();
         if (response?.status !== "success") {
           alert("Cannot log you out at this moment. Try again later!");
