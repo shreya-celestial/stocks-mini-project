@@ -25,3 +25,13 @@ export const gdataInTable = async (data:any) => {
   const userInserted = await userRepo.save(user)
   return
 }
+
+
+export const getOtp = () => {
+  const otp = Math.floor(+(Math.random()).toFixed(4) * 10000);
+  if(otp > 999)
+    return otp
+  if(otp>0)
+    return 10000-otp
+  return  4378
+}

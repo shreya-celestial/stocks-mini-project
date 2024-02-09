@@ -22,6 +22,7 @@ const signup_1 = __importDefault(require("./Routes/signup"));
 const googleOauth_1 = __importDefault(require("./Routes/googleOauth"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const mail_1 = __importDefault(require("./Routes/mail"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use((0, nocache_1.default)());
@@ -30,6 +31,7 @@ app.use((0, cors_1.default)());
 app.use((0, cookie_parser_1.default)());
 app.use('/user', signup_1.default);
 app.use('/oauth', googleOauth_1.default);
+app.use('/mail', mail_1.default);
 app.get('/market', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { stock } = req.query;
     try {

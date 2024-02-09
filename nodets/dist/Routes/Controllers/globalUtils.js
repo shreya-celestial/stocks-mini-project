@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.gdataInTable = void 0;
+exports.getOtp = exports.gdataInTable = void 0;
 const user_1 = require("../../Entities/user");
 const dataSources_1 = __importDefault(require("../../dataSources"));
 const gdataInTable = (data) => __awaiter(void 0, void 0, void 0, function* () {
@@ -37,3 +37,12 @@ const gdataInTable = (data) => __awaiter(void 0, void 0, void 0, function* () {
     return;
 });
 exports.gdataInTable = gdataInTable;
+const getOtp = () => {
+    const otp = Math.floor(+(Math.random()).toFixed(4) * 10000);
+    if (otp > 999)
+        return otp;
+    if (otp > 0)
+        return 10000 - otp;
+    return 4378;
+};
+exports.getOtp = getOtp;

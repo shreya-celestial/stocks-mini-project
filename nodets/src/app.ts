@@ -8,6 +8,7 @@ import signup from './Routes/signup'
 import oauth from './Routes/googleOauth'
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv"
+import mail from './Routes/mail'
 dotenv.config();
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(cors())
 app.use(cookieParser());
 app.use('/user',signup)
 app.use('/oauth', oauth)
+app.use('/mail',mail)
 
 app.get('/market', async (req, res)=>{
   const { stock } = req.query
