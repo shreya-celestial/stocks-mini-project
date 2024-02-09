@@ -1,5 +1,5 @@
 import express from "express";
-import { gdata, login, signup, glogout, checkUser } from "./Controllers/signup";
+import { gdata, login, signup, glogout, checkUser, resetPassword } from "./Controllers/signup";
 import { clientRequest } from "./Controllers/oauth";
 
 const router = express.Router();
@@ -11,5 +11,6 @@ router.get('/googleRequest', clientRequest)
 router.get('/getmygoogledata', gdata)
 router.get('/logoutgoogle/:id', glogout)
 router.put('/checkUser', checkUser)
+router.put('/password', resetPassword)
 
 export default router

@@ -3,9 +3,11 @@ import styles from "./modules/signup.module.css";
 import Button from "@mui/material/Button";
 import React, { useState } from "react";
 import Timer from "./Timer";
+import { useNavigate } from "react-router-dom";
 
 const TIMEOUT = 120;
 const ForgotPass = () => {
+  const nav = useNavigate();
   const [email, setEmail] = useState("");
   const [emailVerified, setEmailVerified] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
@@ -74,9 +76,39 @@ const ForgotPass = () => {
     alert("Enter a valid OTP!");
   };
 
-  const handlePassword = (e: React.FormEvent<HTMLFormElement>) => {
+  const handlePassword = async (e: any) => {
     e.preventDefault();
-    console.log("password");
+    const password = e.target.elements.password.value;
+    if (password.length > 6) {
+      const data = {
+        password,
+        email,
+      };
+      setOtpVerified((prev) => !prev);
+      try {
+        const userpassword = await fetch(
+          "http://localhost:8080/user/password",
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
+        const response = await userpassword.json();
+        if (response?.status === "success") {
+          alert("Password changed successfully!");
+          nav("/login/user");
+          return;
+        }
+        alert("Something went wrong... Please try again later!");
+      } catch (err) {
+        alert("Something went wrong... Please try again later!");
+      }
+      return;
+    }
+    alert("Enter atleast a 6 digit password");
   };
 
   return (

@@ -98,3 +98,15 @@ export const checkUser = async (req: Request, res: Response)=>{
   }
   return res.status(404).json({status:'error',msg:'User not found!'})
 }
+
+export const resetPassword = async (req: Request,res: Response) => {
+  const {password, email} = req.body;
+  const userRepo = AppDataSource.getRepository(User)
+  const updated = await userRepo.update({email}, {
+    password
+  })
+  if(updated){
+    return res.status(200).json({status: 'success', msg: 'Password changed successfully!'})
+  }
+  return res.status(400).json({status: 'error', msg: 'Something went wrong. Please try again later'})
+}

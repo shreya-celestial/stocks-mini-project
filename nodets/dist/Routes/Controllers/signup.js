@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkUser = exports.glogout = exports.gdata = exports.login = exports.signup = void 0;
+exports.resetPassword = exports.checkUser = exports.glogout = exports.gdata = exports.login = exports.signup = void 0;
 const user_1 = require("../../Entities/user");
 const dataSources_1 = __importDefault(require("../../dataSources"));
 const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -106,3 +106,15 @@ const checkUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     return res.status(404).json({ status: 'error', msg: 'User not found!' });
 });
 exports.checkUser = checkUser;
+const resetPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { password, email } = req.body;
+    const userRepo = dataSources_1.default.getRepository(user_1.User);
+    const updated = yield userRepo.update({ email }, {
+        password
+    });
+    if (updated) {
+        return res.status(200).json({ status: 'success', msg: 'Password changed successfully!' });
+    }
+    return res.status(400).json({ status: 'error', msg: 'Something went wrong. Please try again later' });
+});
+exports.resetPassword = resetPassword;
