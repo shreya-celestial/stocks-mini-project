@@ -59,7 +59,7 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             });
             if (mail.status === 200) {
                 const otpInserted = yield otpRepo.save(userOtp);
-                return res.status(200).json({ status: 'success', msg: 'OTP sent!', otp, email });
+                return res.status(200).json({ status: 'success', msg: 'OTP sent!', email });
             }
             return res.status(400).json({ status: 'error', msg: 'Mail cannot be sent at this moment' });
         }
