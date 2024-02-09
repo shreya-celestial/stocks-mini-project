@@ -12,6 +12,7 @@ const Login = () => {
   const nav = useNavigate();
   const [cookies] = useCookies();
   const [loader, setLoader] = useState(false);
+  const [view, setView] = useState(false);
 
   useEffect(() => {
     const gData = async () => {
@@ -95,10 +96,29 @@ const Login = () => {
         <TextField
           required
           label="Password"
-          type="password"
+          type={view ? "text" : "password"}
           name="password"
           sx={{ width: "94.4%", marginBottom: "10px" }}
         />
+        <div
+          style={{
+            width: "94.4%",
+            margin: "0 auto",
+            marginBottom: "10px",
+            textAlign: "start",
+          }}
+        >
+          <label>
+            <input
+              type="checkbox"
+              checked={view}
+              onChange={() => {
+                setView((prev) => !prev);
+              }}
+            />
+            Show Password
+          </label>
+        </div>
         <div
           style={{
             marginBottom: "10px",

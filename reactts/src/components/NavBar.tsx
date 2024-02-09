@@ -54,7 +54,7 @@ const NavBar = () => {
       <AppBar position="static">
         <Toolbar>
           <h1 style={{ cursor: "pointer" }} onClick={handleClick}>
-            NStockE
+            NStocksE
           </h1>
           {!user && (
             <Link
