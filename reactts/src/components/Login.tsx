@@ -121,9 +121,10 @@ const Login = () => {
         </div>
         <div
           style={{
+            width: "94.4%",
+            margin: "0 auto",
             marginBottom: "10px",
             textAlign: "end",
-            marginRight: "35px",
           }}
         >
           <Link
