@@ -42,7 +42,7 @@ export class User{
   @Column({nullable: true, unique:true,})
   authId: string;
 
-  @Column({nullable: true, unique:true,})
+  @Column({nullable: true,})
   token: string;
 
   @OneToMany(()=>UserOtp, (otp)=>otp.user)

@@ -68,7 +68,7 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "authId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true, unique: true, }),
+    (0, typeorm_1.Column)({ nullable: true, }),
     __metadata("design:type", String)
 ], User.prototype, "token", void 0);
 __decorate([
