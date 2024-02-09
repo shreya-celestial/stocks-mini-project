@@ -84,7 +84,7 @@ const ForgotPass = () => {
         password,
         email,
       };
-      setOtpVerified((prev) => !prev);
+      setDisableBtn((prev) => !prev);
       try {
         const userpassword = await fetch(
           "http://localhost:8080/user/password",
@@ -102,7 +102,8 @@ const ForgotPass = () => {
           nav("/login/user");
           return;
         }
-        alert("Something went wrong... Please try again later!");
+        setDisableBtn((prev) => !prev);
+        alert("Something went wrong... Please try again!");
       } catch (err) {
         alert("Something went wrong... Please try again later!");
       }
