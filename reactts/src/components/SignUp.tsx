@@ -7,6 +7,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { REGEX } from "../App";
 
 const SignUp = () => {
   const [pin, setPin] = useState("");
@@ -17,35 +18,44 @@ const SignUp = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const data = {
-      fname: e.target.elements.firstname.value,
-      lname: e.target.elements.lastname.value,
-      email: e.target.elements.email.value,
-      password: e.target.elements.password.value,
-      pin: e.target.elements.pincode.value,
-      country: e.target.elements.country.value,
-      state: e.target.elements.state.value,
-      city: e.target.elements.city.value,
-      address1: e.target.elements.address1.value,
-      address2: e.target.elements.address2.value,
-    };
-    try {
-      const postData = await fetch("http://localhost:8080/user/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      const response = await postData.json();
-      if (response?.status === "success") {
-        nav("/login/user");
-      } else {
-        alert(response?.msg);
+    if (
+      REGEX.test(e.target.elements.password.value) &&
+      e.target.elements.password.value.length > 6
+    ) {
+      const data = {
+        fname: e.target.elements.firstname.value,
+        lname: e.target.elements.lastname.value,
+        email: e.target.elements.email.value,
+        password: e.target.elements.password.value,
+        pin: e.target.elements.pincode.value,
+        country: e.target.elements.country.value,
+        state: e.target.elements.state.value,
+        city: e.target.elements.city.value,
+        address1: e.target.elements.address1.value,
+        address2: e.target.elements.address2.value,
+      };
+      try {
+        const postData = await fetch("http://localhost:8080/user/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        const response = await postData.json();
+        if (response?.status === "success") {
+          nav("/login/user");
+        } else {
+          alert(response?.msg);
+        }
+      } catch (err) {
+        alert("Something went wrong... Please try again!");
       }
-    } catch (err) {
-      alert("Something went wrong... Please try again!");
+      return;
     }
+    alert(
+      "Enter atleast a 6 digit password that have atleast 1 special character, 1 uppercase letter, 1 lowercase letter and 1 digit."
+    );
   };
 
   useEffect(() => {
@@ -72,7 +82,11 @@ const SignUp = () => {
   }, [pin]);
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form
+      className={styles.form}
+      onSubmit={handleSubmit}
+      style={{ background: "white", marginTop: "0", borderRadius: "0" }}
+    >
       <h2>Basic Details</h2>
       <div className={styles.nameInps}>
         <TextField

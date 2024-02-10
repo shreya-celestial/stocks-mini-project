@@ -9,14 +9,17 @@ import Paper from "@mui/material/Paper";
 import { Link } from "react-router-dom";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import UserContext from "../store/UserContext";
 
 const FIRSTPAGEDATA = data.filter((data) => data.id <= 10);
 
 const TableData: React.FC = () => {
+  const { user } = useContext(UserContext);
   const [page, setPage] = useState(1);
   const [pagedData, setPagedData] = useState(FIRSTPAGEDATA);
   const count = Math.round(data.length / 10);
+
   const handleChange = (event: any, value: number) => {
     const dataForPage = data.filter(
       (data) => data.id > 10 * (value - 1) && data.id <= 10 * value
@@ -51,7 +54,15 @@ const TableData: React.FC = () => {
               <TableCell>{company.name}</TableCell>
               <TableCell>{company.ticker}</TableCell>
               <TableCell align="right">
-                <Link to={`/${company.ticker}`}>View More</Link>
+                {user && <Link to={`/${company.ticker}`}>View More</Link>}
+                {!user && (
+                  <span
+                    onClick={() => alert("Login to view more!")}
+                    style={{ color: "#d3d3d3", cursor: "pointer" }}
+                  >
+                    View More
+                  </span>
+                )}
               </TableCell>
             </TableRow>
           ))}

@@ -7,6 +7,8 @@ import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import UserContext from "./store/UserContext";
 import ForgotPass from "./components/ForgotPass";
+import ChangePass from "./components/ChangePass";
+import History from "./components/History";
 
 let SESSION_USER = localStorage.getItem("user");
 SESSION_USER = SESSION_USER ? JSON.parse(SESSION_USER) : null;
@@ -62,7 +64,9 @@ const App: React.FC = () => {
             {!user && <Route path="/sign-up/user" element={<SignUp />} />}
             {!user && <Route path="/login/user" element={<Login />} />}
             {!user && <Route path="/forgot/user" element={<ForgotPass />} />}
-            <Route path="/:ticker" element={<Stock />} />
+            {user && <Route path="/history/user" element={<History />} />}
+            {user && <Route path="/:ticker" element={<Stock />} />}
+            {user && <Route path="/password/user" element={<ChangePass />} />}
             <Route path="/*" element={<TableData />} />
           </Routes>
         </div>
@@ -72,3 +76,5 @@ const App: React.FC = () => {
 };
 
 export default App;
+
+export const REGEX = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])/;

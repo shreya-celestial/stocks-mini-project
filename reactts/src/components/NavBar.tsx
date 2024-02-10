@@ -2,24 +2,32 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useMatch, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import UserContext from "../store/UserContext";
+import Divider from "@mui/material/Divider";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Menu from "@mui/material/Menu";
+import IconButton from "@mui/material/IconButton";
+import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import MenuItem from "@mui/material/MenuItem";
 
 const NavBar = () => {
   const nav = useNavigate();
+  const TickerUrl = useMatch("/:id");
   const { user, setUser } = useContext(UserContext);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleOpen = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleSaveStock = () => {
+    console.log(TickerUrl?.params?.id);
   };
 
   const handleLogOut = async () => {
@@ -64,43 +72,90 @@ const NavBar = () => {
               <Button color="inherit">Login</Button>
             </Link>
           )}
+          {user && TickerUrl && (
+            <IconButton sx={{ marginLeft: "auto" }} onClick={handleSaveStock}>
+              <BookmarkAddIcon sx={{ color: "white", fontSize: "xx-large" }} />
+            </IconButton>
+          )}
           {user && !user.token && (
-            <AccountCircleIcon fontSize="large" sx={{ marginLeft: "auto" }} />
+            <IconButton onClick={handleOpen}>
+              <AccountCircleIcon fontSize="large" sx={{ marginLeft: "auto" }} />
+            </IconButton>
           )}
           {user && user.token && (
             <img
               src={user?.pictureUrl}
+              onClick={handleOpen}
               alt="Profile"
               style={{
-                marginLeft: "auto",
+                marginLeft: TickerUrl ? "12px" : "auto",
                 maxHeight: "35px",
                 borderRadius: "50%",
                 border: "1.35px solid #FAF9F6",
+                cursor: "pointer",
               }}
             />
           )}
           {user && (
-            <>
-              <Button
-                id="basic-button"
-                color="inherit"
-                sx={{ marginLeft: "12px" }}
-                onClick={handleOpen}
-              >
-                {user.firstname}
-              </Button>
-              <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                  "aria-labelledby": "basic-button",
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  overflow: "visible",
+                  filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                  mt: 1.5,
+                  "& .MuiAvatar-root": {
+                    width: 32,
+                    height: 32,
+                    ml: -0.5,
+                    mr: 1,
+                  },
+                  "&::before": {
+                    content: '""',
+                    display: "block",
+                    position: "absolute",
+                    top: 0,
+                    right: 14,
+                    width: 10,
+                    height: 10,
+                    bgcolor: "background.paper",
+                    transform: "translateY(-50%) rotate(45deg)",
+                    zIndex: 0,
+                  },
+                },
+              }}
+              transformOrigin={{ horizontal: "right", vertical: "top" }}
+              anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+            >
+              <MenuItem>
+                <b>{`${user?.firstname} ${user?.lastname}`}</b>
+              </MenuItem>
+              <MenuItem>
+                <i>{user?.email}</i>
+              </MenuItem>
+              <Divider />
+              <MenuItem
+                onClick={() => {
+                  handleClose();
+                  nav("/history/user");
                 }}
               >
-                <MenuItem onClick={handleLogOut}>Logout</MenuItem>
-              </Menu>
-            </>
+                History
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleClose();
+                  nav("/password/user");
+                }}
+              >
+                Change Password
+              </MenuItem>
+              <MenuItem onClick={handleLogOut}>Logout</MenuItem>
+            </Menu>
           )}
         </Toolbar>
       </AppBar>

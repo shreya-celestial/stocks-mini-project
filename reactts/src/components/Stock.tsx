@@ -10,10 +10,14 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Container } from "@mui/material";
 import Carousel from "./Carousel";
+import testdata from "../assets/testData";
 
 const Stock: React.FC = () => {
   const { ticker } = useParams();
-  const data = useFetch(ticker);
+  // const data = useFetch(ticker);
+  const data = {
+    response: testdata,
+  };
 
   if (typeof data === "string") {
     return (
@@ -27,7 +31,7 @@ const Stock: React.FC = () => {
     ? [
         ["", ""],
         ...data?.response?.graph?.map(
-          (point: { date: Date; price: number }) => {
+          (point: { date: Date | string; price: number }) => {
             return [
               new Date(point?.date).toLocaleTimeString("en-US", {
                 hour: "numeric",
