@@ -19,7 +19,7 @@ export const clientRequest = (req:any,res:any) => {
     prompt: 'consent'
   });
 
-  res.json({url:authorizeUrl})
+  res.status(200).json({url:authorizeUrl})
 }
 
 const getUserData = async (access_token:string | null | undefined) => {

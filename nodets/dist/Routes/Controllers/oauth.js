@@ -29,7 +29,7 @@ const clientRequest = (req, res) => {
         scope: SCOPES,
         prompt: 'consent'
     });
-    res.json({ url: authorizeUrl });
+    res.status(200).json({ url: authorizeUrl });
 };
 exports.clientRequest = clientRequest;
 const getUserData = (access_token) => __awaiter(void 0, void 0, void 0, function* () {

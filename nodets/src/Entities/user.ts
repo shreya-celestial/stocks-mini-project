@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm";
 import { UserOtp } from "./userotps";
+import { Prices } from "./prices";
 
 @Entity()
 export class User{
@@ -47,4 +48,7 @@ export class User{
 
   @OneToMany(()=>UserOtp, (otp)=>otp.user)
   otps:UserOtp[]
+
+  @OneToMany(()=>Prices, (price)=>price.user)
+  stockprice: Prices[]
 }

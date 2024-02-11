@@ -56,7 +56,7 @@ router.get('/',async (req,res)=>{
     }
     return res.status(404).json({status: 'error', msg:'Email not found!'})
   }
-  return res.json({msg:"Enter a valid email"})
+  return res.status(400).json({msg:"Enter a valid email"})
 })
 
 router.get('/verifyOtp', async (req,res)=>{

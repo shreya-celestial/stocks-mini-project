@@ -9,6 +9,8 @@ import oauth from './Routes/googleOauth'
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv"
 import mail from './Routes/mail'
+import prices from './Routes/prices'
+import stocks from './Routes/stocksData'
 dotenv.config();
 
 const app = express();
@@ -20,6 +22,8 @@ app.use(cookieParser());
 app.use('/user',signup)
 app.use('/oauth', oauth)
 app.use('/mail',mail)
+app.use('/stocks', stocks)
+app.use('/prices', prices)
 
 app.get('/market', async (req, res)=>{
   const { stock } = req.query

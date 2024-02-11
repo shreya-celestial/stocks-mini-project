@@ -11,9 +11,15 @@ import Menu from "@mui/material/Menu";
 import IconButton from "@mui/material/IconButton";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import MenuItem from "@mui/material/MenuItem";
+import { useSelector } from "react-redux";
+
+type Reducer = {
+  stock: any;
+};
 
 const NavBar = () => {
   const nav = useNavigate();
+  const stock = useSelector((state: Reducer) => state.stock);
   const TickerUrl = useMatch("/:id");
   const { user, setUser } = useContext(UserContext);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -26,8 +32,31 @@ const NavBar = () => {
     setAnchorEl(null);
   };
 
-  const handleSaveStock = () => {
-    console.log(TickerUrl?.params?.id);
+  const handleSaveStock = async () => {
+    if (typeof stock === "object") {
+      try {
+        const dataToSend = {
+          ticker: stock?.ticker,
+          price: stock?.response?.summary?.price,
+          email: user?.email,
+        };
+        const sendData = await fetch("http://localhost:8080/prices", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(dataToSend),
+        });
+        const response = await sendData.json();
+        if (response?.status !== "success") {
+          alert(response?.msg);
+        }
+      } catch (err) {
+        alert("Something went wrong... Please try again later!");
+      }
+      return;
+    }
+    alert("Something went wrong... Please try again later!");
   };
 
   const handleLogOut = async () => {

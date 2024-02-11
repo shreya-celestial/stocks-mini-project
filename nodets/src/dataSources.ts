@@ -1,6 +1,8 @@
 import { DataSource } from "typeorm";
 import { User } from "./Entities/user";
 import { UserOtp } from "./Entities/userotps";
+import { Stocks } from "./Entities/stocks";
+import { Prices } from "./Entities/prices";
 
 const AppDataSource = new DataSource({
   type:'postgres',
@@ -9,7 +11,7 @@ const AppDataSource = new DataSource({
   username:'postgres',
   password:'password',
   database: 'NStocksE',
-  entities: [User, UserOtp],
+  entities: [User, UserOtp, Stocks, Prices],
   synchronize: true,
   logging: true
 });

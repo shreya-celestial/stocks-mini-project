@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const typeorm_1 = require("typeorm");
 const userotps_1 = require("./userotps");
+const prices_1 = require("./prices");
 let User = class User {
 };
 exports.User = User;
@@ -75,6 +76,10 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => userotps_1.UserOtp, (otp) => otp.user),
     __metadata("design:type", Array)
 ], User.prototype, "otps", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => prices_1.Prices, (price) => price.user),
+    __metadata("design:type", Array)
+], User.prototype, "stockprice", void 0);
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)()
 ], User);
