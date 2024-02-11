@@ -14,4 +14,5 @@ router.get('/getmygoogledata', signup_1.gdata);
 router.get('/logoutgoogle/:id', signup_1.glogout);
 router.put('/checkUser', signup_1.checkUser);
 router.put('/password', signup_1.resetPassword);
+router.put('/device', signup_1.addDevice);
 exports.default = router;

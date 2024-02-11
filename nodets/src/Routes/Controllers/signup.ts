@@ -110,3 +110,19 @@ export const resetPassword = async (req: Request,res: Response) => {
   }
   return res.status(400).json({status: 'error', msg: 'Something went wrong. Please try again later'})
 }
+
+export const addDevice = async (req: Request,res: Response) => {
+  const {email,deviceToken} = req.body;
+  if(email && deviceToken)
+  {
+    const userRepo = AppDataSource.getRepository(User);
+    const user = await userRepo.update({email}, {
+      deviceToken
+    })
+    if(user){
+      return res.status(200).json({status:'success', msg:"device updated successfully", data: user})
+    }
+    return res.status(400).json({status:'error', msg:"Cannot update device at this moment."})
+  }
+  return res.status(400).json({status:'error', msg:"Please provide with valid data"})
+}

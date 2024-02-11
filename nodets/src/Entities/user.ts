@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm";
 import { UserOtp } from "./userotps";
 import { Prices } from "./prices";
+import { Notifications } from "./notifications";
 
 @Entity()
 export class User{
@@ -46,9 +47,15 @@ export class User{
   @Column({nullable: true,})
   token: string;
 
+  @Column({nullable: true,})
+  deviceToken: string
+
   @OneToMany(()=>UserOtp, (otp)=>otp.user)
   otps:UserOtp[]
 
   @OneToMany(()=>Prices, (price)=>price.user)
   stockprice: Prices[]
+
+  @OneToMany(()=>Notifications, (notify)=>notify.user)
+  messages: Notification[]
 }

@@ -13,6 +13,7 @@ exports.User = void 0;
 const typeorm_1 = require("typeorm");
 const userotps_1 = require("./userotps");
 const prices_1 = require("./prices");
+const notifications_1 = require("./notifications");
 let User = class User {
 };
 exports.User = User;
@@ -73,6 +74,10 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "token", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ nullable: true, }),
+    __metadata("design:type", String)
+], User.prototype, "deviceToken", void 0);
+__decorate([
     (0, typeorm_1.OneToMany)(() => userotps_1.UserOtp, (otp) => otp.user),
     __metadata("design:type", Array)
 ], User.prototype, "otps", void 0);
@@ -80,6 +85,10 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => prices_1.Prices, (price) => price.user),
     __metadata("design:type", Array)
 ], User.prototype, "stockprice", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => notifications_1.Notifications, (notify) => notify.user),
+    __metadata("design:type", Array)
+], User.prototype, "messages", void 0);
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)()
 ], User);

@@ -10,14 +10,14 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Container } from "@mui/material";
 import Carousel from "./Carousel";
-import testdata from "../assets/testData";
+// import testdata from "../assets/testData";
 
 const Stock: React.FC = () => {
   const { ticker } = useParams();
-  // const data = useFetch(ticker);
-  const data = {
-    response: testdata,
-  };
+  const data = useFetch(ticker);
+  // const data = {
+  //   response: testdata,
+  // };
 
   if (typeof data === "string") {
     return (

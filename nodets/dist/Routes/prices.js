@@ -66,13 +66,27 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                     const data = yield pricesRepo.find({ where: {
                             created: (0, typeorm_1.And)((0, typeorm_1.MoreThanOrEqual)(start), (0, typeorm_1.LessThanOrEqual)(end)),
                             user
-                        } });
+                        },
+                        order: {
+                            id: 'ASC',
+                            stock: {
+                                name: 'DESC'
+                            }
+                        }
+                    });
                     return res.status(200).json({ status: 'success', msg: 'Data successfully fetched', data });
                 }
                 const data = yield pricesRepo.find({ where: {
                         created: (0, typeorm_1.MoreThanOrEqual)(start),
                         user
-                    } });
+                    },
+                    order: {
+                        id: 'ASC',
+                        stock: {
+                            name: 'DESC'
+                        }
+                    }
+                });
                 return res.status(200).json({ status: 'success', msg: 'Data successfully fetched', data });
             }
             if (endDate && typeof endDate === 'string') {
@@ -80,12 +94,26 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 const data = yield pricesRepo.find({ where: {
                         created: (0, typeorm_1.LessThanOrEqual)(end),
                         user
-                    } });
+                    },
+                    order: {
+                        id: 'ASC',
+                        stock: {
+                            name: 'DESC'
+                        }
+                    }
+                });
                 return res.status(200).json({ status: 'success', msg: 'Data successfully fetched', data });
             }
             const data = yield pricesRepo.find({ where: {
                     user
-                } });
+                },
+                order: {
+                    id: 'ASC',
+                    stock: {
+                        name: 'DESC'
+                    }
+                }
+            });
             return res.status(200).json({ status: 'success', msg: 'Data successfully fetched', data });
         }
         return res.status(404).json({ status: 'error', msg: 'User not found' });

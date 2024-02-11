@@ -62,27 +62,55 @@ router.get('/', async (req,res)=>{
           const data = await pricesRepo.find({where:{
             created: And(MoreThanOrEqual(start), LessThanOrEqual(end)),
             user
-          }})
+          },
+          order: {
+            id: 'ASC',
+            stock: {
+              name: 'DESC'
+            }
+          }
+        })
           return res.status(200).json({status:'success', msg:'Data successfully fetched', data})
         }
         const data = await pricesRepo.find({where:{
-          created: MoreThanOrEqual(start),
-          user
-        }})
+            created: MoreThanOrEqual(start),
+            user
+          },
+          order: {
+            id: 'ASC',
+            stock: {
+              name: 'DESC'
+            }
+          }
+        })
         return res.status(200).json({status:'success', msg:'Data successfully fetched',data})
       }
       if(endDate && typeof endDate === 'string')
       {
         const end = new Date(endDate)
         const data = await pricesRepo.find({where:{
-          created: LessThanOrEqual(end),
-          user
-        }})
+            created: LessThanOrEqual(end),
+            user
+          },
+          order: {
+            id: 'ASC',
+            stock: {
+              name: 'DESC'
+            }
+          }
+        })
         return res.status(200).json({status:'success', msg:'Data successfully fetched', data})
       }
       const data = await pricesRepo.find({where:{
-        user
-      }})
+          user
+        },
+        order: {
+          id: 'ASC',
+          stock: {
+            name: 'DESC'
+          }
+        }
+      })
       return res.status(200).json({status:'success', msg:'Data successfully fetched', data})
     }
     return res.status(404).json({status:'error', msg:'User not found'})

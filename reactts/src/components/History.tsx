@@ -32,6 +32,7 @@ const History = () => {
       }
       const response = await fetch(url);
       const filteredData = await response.json();
+      console.log(filteredData);
       if (filteredData?.status === "success") {
         setData(filteredData?.data);
         setLoader(false);
@@ -125,7 +126,7 @@ const History = () => {
                     <TableCell>{record?.stock?.ticker}</TableCell>
                     <TableCell>{record?.price}</TableCell>
                     <TableCell align="right">
-                      {moment(record?.create).format("MMMM Do YYYY")}
+                      {moment(record?.created).format("MMMM Do YYYY")}
                     </TableCell>
                   </TableRow>
                 ))}

@@ -3,6 +3,7 @@ import { User } from "./Entities/user";
 import { UserOtp } from "./Entities/userotps";
 import { Stocks } from "./Entities/stocks";
 import { Prices } from "./Entities/prices";
+import { Notifications } from "./Entities/notifications";
 
 const AppDataSource = new DataSource({
   type:'postgres',
@@ -11,7 +12,7 @@ const AppDataSource = new DataSource({
   username:'postgres',
   password:'password',
   database: 'NStocksE',
-  entities: [User, UserOtp, Stocks, Prices],
+  entities: [User, UserOtp, Stocks, Prices, Notifications],
   synchronize: true,
   logging: true
 });

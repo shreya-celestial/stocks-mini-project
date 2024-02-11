@@ -25,6 +25,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const mail_1 = __importDefault(require("./Routes/mail"));
 const prices_1 = __importDefault(require("./Routes/prices"));
 const stocksData_1 = __importDefault(require("./Routes/stocksData"));
+const notify_1 = __importDefault(require("./Routes/notify"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use((0, nocache_1.default)());
@@ -36,6 +37,7 @@ app.use('/oauth', googleOauth_1.default);
 app.use('/mail', mail_1.default);
 app.use('/stocks', stocksData_1.default);
 app.use('/prices', prices_1.default);
+app.use('/notifications', notify_1.default);
 app.get('/market', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { stock } = req.query;
     try {

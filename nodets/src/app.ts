@@ -11,6 +11,7 @@ import dotenv from "dotenv"
 import mail from './Routes/mail'
 import prices from './Routes/prices'
 import stocks from './Routes/stocksData'
+import notify from './Routes/notify'
 dotenv.config();
 
 const app = express();
@@ -24,6 +25,7 @@ app.use('/oauth', oauth)
 app.use('/mail',mail)
 app.use('/stocks', stocks)
 app.use('/prices', prices)
+app.use('/notifications', notify)
 
 app.get('/market', async (req, res)=>{
   const { stock } = req.query
