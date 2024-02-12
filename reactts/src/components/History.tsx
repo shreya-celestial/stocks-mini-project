@@ -32,7 +32,7 @@ const History = () => {
       }
       const response = await fetch(url);
       const filteredData = await response.json();
-      console.log(filteredData);
+
       if (filteredData?.status === "success") {
         setData(filteredData?.data);
         setLoader(false);

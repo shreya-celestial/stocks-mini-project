@@ -49,7 +49,9 @@ const NavBar = (props: props) => {
         props?.notifyMsgHandler(payload?.notification);
         props?.handleSnack(true);
       }
-      setCountState((prev) => !prev);
+      if (payload?.notification?.title !== "Admin") {
+        setCountState((prev) => !prev);
+      }
     }
   });
 
@@ -106,7 +108,9 @@ const NavBar = (props: props) => {
         const response = await sendData.json();
         if (response?.status !== "success") {
           alert(response?.msg);
+          return;
         }
+        alert("Stock added successfully!");
       } catch (err) {
         alert("Something went wrong... Please try again later!");
       }
