@@ -1,9 +1,9 @@
 .form {
   width: 100%;
-  background-color: rgba(0,0,0,0.1);
+  background-color: white;
   border-radius: 10px;
   margin-top: 20px;
-  padding: 10px 0 30px;
+  padding: 20px 0 40px;
 }
 
 .form h2 {

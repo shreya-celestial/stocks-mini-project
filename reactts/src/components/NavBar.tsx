@@ -110,7 +110,7 @@ const NavBar = (props: props) => {
           alert(response?.msg);
           return;
         }
-        alert("Stock added successfully!");
+        alert("Stock price saved successfully!");
       } catch (err) {
         alert("Something went wrong... Please try again later!");
       }
@@ -137,7 +137,7 @@ const NavBar = (props: props) => {
       }
     }
     setUser(null);
-    localStorage.removeItem("user");
+    sessionStorage.removeItem("user");
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     nav("/login/user");
   };

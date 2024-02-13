@@ -100,15 +100,24 @@ export const checkUser = async (req: Request, res: Response)=>{
 }
 
 export const resetPassword = async (req: Request,res: Response) => {
-  const {password, email} = req.body;
+  const {olderPass, password, email} = req.body;
   const userRepo = AppDataSource.getRepository(User)
-  const updated = await userRepo.update({email}, {
-    password
+  const user = await userRepo.findOne({
+    where: {
+      password: olderPass,
+      email
+    }
   })
-  if(updated){
-    return res.status(200).json({status: 'success', msg: 'Password changed successfully!'})
+  if(user){
+    const updated = await userRepo.update({email}, {
+      password
+    })
+    if(updated){
+      return res.status(200).json({status: 'success', msg: 'Password changed successfully!'})
+    }
+    return res.status(400).json({status: 'error', msg: 'Something went wrong. Please try again later'})
   }
-  return res.status(400).json({status: 'error', msg: 'Something went wrong. Please try again later'})
+  return res.status(400).json({status: 'error', msg: 'Please enter valid user credentials'})
 }
 
 export const addDevice = async (req: Request,res: Response) => {
@@ -125,4 +134,20 @@ export const addDevice = async (req: Request,res: Response) => {
     return res.status(400).json({status:'error', msg:"Cannot update device at this moment."})
   }
   return res.status(400).json({status:'error', msg:"Please provide with valid data"})
+}
+
+export const verifyPass = async (req: Request,res: Response) => {
+  const {email, password} = req.query;
+  if(email && password && typeof email === 'string' && typeof password === 'string')
+  {
+    const userRepo = AppDataSource.getRepository(User);
+    const user = await userRepo.findOne({where:{
+      email, password
+    }})
+    if(user) {
+      return res.status(200).json({status:'success', msg:"User verified!"})
+    }
+    return res.status(400).json({status: 'error', msg: 'Please enter valid user credentials'})
+  }
+  return res.status(400).json({status: 'error', msg: 'Invalid input'})
 }

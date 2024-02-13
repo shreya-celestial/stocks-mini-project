@@ -85,7 +85,12 @@ const SignUp = () => {
     <form
       className={styles.form}
       onSubmit={handleSubmit}
-      style={{ background: "white", marginTop: "0", borderRadius: "0" }}
+      style={{
+        background: "white",
+        marginTop: "0",
+        borderRadius: "0",
+        padding: "10px 0 30px",
+      }}
     >
       <h2>Basic Details</h2>
       <div className={styles.nameInps}>

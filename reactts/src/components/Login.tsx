@@ -35,7 +35,7 @@ const Login = () => {
         );
         const response = await gresp.json();
         if (response?.status === "success") {
-          localStorage.setItem("user", JSON.stringify(response?.data));
+          sessionStorage.setItem("user", JSON.stringify(response?.data));
           setUser(response?.data);
           nav("/");
         } else {
@@ -66,7 +66,7 @@ const Login = () => {
       const dataUser = await fetch(url);
       const response = await dataUser.json();
       if (response?.status === "success") {
-        localStorage.setItem("user", JSON.stringify(response?.data));
+        sessionStorage.setItem("user", JSON.stringify(response?.data));
         setUser(response?.data);
         nav("/");
       } else {
@@ -99,7 +99,16 @@ const Login = () => {
   return (
     <DesignWrapper>
       <Loader loading={loader}>
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <form
+          className={styles.form}
+          onSubmit={handleSubmit}
+          style={{
+            height: "100vh",
+            margin: "0",
+            marginTop: "-8px",
+            borderRadius: "0",
+          }}
+        >
           <h2>Login Details</h2>
           <TextField
             required
