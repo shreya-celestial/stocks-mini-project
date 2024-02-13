@@ -69,7 +69,7 @@ const ChangePass = () => {
               const updateUser = user;
               updateUser.password = password1;
               setUser(updateUser);
-              sessionStorage.setItem("user", JSON.stringify(updateUser));
+              localStorage.setItem("user", JSON.stringify(updateUser));
               nav("/login/user");
               return;
             }
@@ -94,7 +94,16 @@ const ChangePass = () => {
 
   return (
     <DesignWrapper>
-      <form className={styles.form} onSubmit={handlePassword}>
+      <form
+        className={styles.form}
+        onSubmit={handlePassword}
+        style={{
+          height: "100vh",
+          margin: "0",
+          marginTop: "-8px",
+          borderRadius: "0",
+        }}
+      >
         <h2>Change Password</h2>
         <TextField
           required

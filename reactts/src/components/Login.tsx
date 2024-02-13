@@ -35,7 +35,7 @@ const Login = () => {
         );
         const response = await gresp.json();
         if (response?.status === "success") {
-          sessionStorage.setItem("user", JSON.stringify(response?.data));
+          localStorage.setItem("user", JSON.stringify(response?.data));
           setUser(response?.data);
           nav("/");
         } else {
@@ -66,7 +66,7 @@ const Login = () => {
       const dataUser = await fetch(url);
       const response = await dataUser.json();
       if (response?.status === "success") {
-        sessionStorage.setItem("user", JSON.stringify(response?.data));
+        localStorage.setItem("user", JSON.stringify(response?.data));
         setUser(response?.data);
         nav("/");
       } else {

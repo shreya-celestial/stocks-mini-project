@@ -127,6 +127,12 @@ const ForgotPass = () => {
     <DesignWrapper>
       <form
         className={styles.form}
+        style={{
+          height: "100vh",
+          margin: "0",
+          marginTop: "-8px",
+          borderRadius: "0",
+        }}
         onSubmit={
           !emailVerified
             ? handleEmail
