@@ -1,5 +1,5 @@
 import express from "express";
-import { gdata, login, signup, glogout, checkUser, resetPassword, addDevice, verifyPass } from "./Controllers/signup";
+import { gdata, login, signup, glogout, checkUser, resetPassword, addDevice, verifyPass } from "./Controllers/user";
 import { clientRequest } from "./Controllers/oauth";
 
 const router = express.Router();

@@ -4,7 +4,7 @@ import nocache from "nocache";
 import cors from "cors";
 import { getJson } from "serpapi";
 import AppDataSource from './dataSources';
-import signup from './Routes/signup'
+import user from './Routes/user'
 import oauth from './Routes/googleOauth'
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv"
@@ -20,9 +20,9 @@ app.use(nocache());
 app.use(express.json());
 app.use(cors())
 app.use(cookieParser());
-app.use('/user',signup)
+app.use('/user',user)
 app.use('/oauth', oauth)
-app.use('/mail',mail)
+app.use('/mail', mail)
 app.use('/stocks', stocks)
 app.use('/prices', prices)
 app.use('/notifications', notify)
